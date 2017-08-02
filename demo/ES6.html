@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ImoocMall</title>
+  <style>
+    .log{
+      background-color: black;
+      color: white;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>ES6讲解</h1>
+  <div id="log" class="log"></div>
+<script>
+  var str=`
+  console.log("a"+a) //aundefined
+  var a = 1 // var及function有变量提升功能
+  console.log("b"+b) //Uncaught ReferenceError: b is not defined
+  const b = 2 // let和const是块级作用域，无变量提升
+  function user() {
+    var c = 1 //var是函数级作用域，在函数外部是不能调用到的,只能在函数内部使用
+  }
+  console.log("c"+c)//Uncaught ReferenceError: a is not defined
+    //块级作用域
+  {
+      let d=1;//{}是一个块，let及const是块级作用域，只能在块里调用，在块外调用不到
+      var e=2//var是函数级作用域，在块外仍可以调用
+  }
+  console.log("d"+d)//Uncaught ReferenceError: d is not defined
+  console.log("e"+e)//e2
+  let一般用来定义普通变量，const定义常量
+  let f=1
+  f=2
+  const g=2
+  g=3//Uncaught TypeError: Assignment to constant variable.
+  const h={a:2}//const里内存地址不能改变，空间里的值可以改变
+  h.a=3
+  h.b=6
+  h={c:2}//Uncaught TypeError: Assignment to constant variable.
+  function add(flag) {
+    if(flag){
+      return "true"
+    }else{
+      return "error"
+    }
+  }
+  console.log(add())//error
+  function sum(flag=true) { //加默认值，防止后面忘记传参
+    if(flag){
+      return "true"
+    }else{
+      return "error"
+    }
+  }
+  console.log(sum())//true
+  //箭头函数
+  var arr=[3,6,9]
+  var newArr=arr.map(function (item) {
+    return item+2
+  })
+  console.log(newArr)
+  var newArr1=arr.map((item)=>item+2)
+  console.log(newArr1)
+  `
+  printlog(str)
+  let userName="lanjing"
+  printlog(`I'am ${userName}`)
+  //数组的解构
+  var [a,b]=[1,2,3]//a=1，b=2，数组的分解
+  //字符串的解构
+  var [x,y,z]="vue"//字符串的分解
+  console.log(`x:${x},y:${y},z:${z}`)
+  //对象的解构
+  var {m,n}={m:10,n:20};//对key进行拆分，相当于{m:m,n:n}
+  console.log(`m:${m},n:${n}`)//无论var {m,n}={m:10,n:20};还是var {n,m}={m:10,n:20};打印出来的都为m:10,n:20
+  //函数的解构
+  function sum([x,y]) {
+    return x+y
+  }
+  var total=sum([2,8])
+  console.log(`total:${total}`)
+  function printlog (str) {
+    document.getElementById("log").innerText += str
+  }
+</script>
+</body>
+</html>
