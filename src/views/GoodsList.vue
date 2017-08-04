@@ -1,36 +1,116 @@
 <template>
-  <div class="hello">
-    这是商品列表页面
-    {{$route.params.goodsId}}
-    {{$route.params.name}}
-    <router-link to="/goods/title">title</router-link>
-    <router-link to="/goods/image">image</router-link>
+  <div>
+    <nav-header></nav-header>
+    <nav-bread>
+      <span slot="bread">GOODS</span>
+      <span slot="b">B</span>
+    </nav-bread>
+    <div class="accessory-result-page accessory-page">
+      <div class="container">
+        <div class="filter-nav">
+          <span class="sortby">Sort by:</span>
+          <a href="javascript:void(0)" class="default cur">Default</a>
+          <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
+          <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+        </div>
+        <div class="accessory-result">
+          <!-- filter -->
+          <div class="filter stopPop" id="filter">
+            <dl class="filter-price">
+              <dt>Price:</dt>
+              <dd><a href="javascript:void(0)">All</a></dd>
+              <dd>
+                <a href="javascript:void(0)">0 - 100</a>
+              </dd>
+              <dd>
+                <a href="javascript:void(0)">100 - 500</a>
+              </dd>
+              <dd>
+                <a href="javascript:void(0)">500 - 1000</a>
+              </dd>
+              <dd>
+                <a href="javascript:void(0)">1000 - 2000</a>
+              </dd>
+            </dl>
+          </div>
 
-    <div>
-      <router-view></router-view>
+          <!-- search result accessories list -->
+          <div class="accessory-list-wrap">
+            <div class="accessory-list col-4">
+              <ul>
+                <li>
+                  <div class="pic">
+                    <a href="#"><img src="static/1.jpg" alt=""></a>
+                  </div>
+                  <div class="main">
+                    <div class="name">XX</div>
+                    <div class="price">999</div>
+                    <div class="btn-area">
+                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="pic">
+                    <a href="#"><img src="static/2.jpg" alt=""></a>
+                  </div>
+                  <div class="main">
+                    <div class="name">XX</div>
+                    <div class="price">1000</div>
+                    <div class="btn-area">
+                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="pic">
+                    <a href="#"><img src="static/3.jpg" alt=""></a>
+                  </div>
+                  <div class="main">
+                    <div class="name">XX</div>
+                    <div class="price">500</div>
+                    <div class="btn-area">
+                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="pic">
+                    <a href="#"><img src="static/4.jpg" alt=""></a>
+                  </div>
+                  <div class="main">
+                    <div class="name">XX</div>
+                    <div class="price">2499</div>
+                    <div class="btn-area">
+                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <router-link v-bind:to="{name:'cart',params:{cartid:123}}">cart</router-link>
-    <button @click="jump">cart</button>
+    <nav-footer></nav-footer>
   </div>
 </template>
 
 <script>
+  import './../assets/css/base.css'
+  import './../assets/css/product.css'
+  import NavHeader from './../components/NavHeader.vue'
+  import NavFooter from './../components/NavFooter.vue'
+  import NavBread from './../components/NavBread.vue'
 export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App',
-      num: 10
-    }
-  },
-  methods: {
-    jump () {
-      // this.$router.push('/cart')
-      // this.$router.push({path: '/cart'})
-      this.$router.push({path: '/cart?goodsid=123'})
-      // this.$router.go(1)
-    }
-  }
+    data () {
+      return {
+        msg: ''
+      }
+    },
+    methods: {
+    },
+    components: {NavHeader, NavFooter, NavBread}
 }
 </script>
 

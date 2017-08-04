@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">111
-    <router-view class="main"></router-view>
-    <router-view name="title" class="left"></router-view>
-    <router-view name="image" class="right"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
