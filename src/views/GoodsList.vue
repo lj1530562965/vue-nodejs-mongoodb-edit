@@ -18,18 +18,9 @@
           <div class="filter stopPop" id="filter">
             <dl class="filter-price">
               <dt>Price:</dt>
-              <dd><a href="javascript:void(0)">All</a></dd>
-              <dd>
-                <a href="javascript:void(0)">0 - 100</a>
-              </dd>
-              <dd>
-                <a href="javascript:void(0)">100 - 500</a>
-              </dd>
-              <dd>
-                <a href="javascript:void(0)">500 - 1000</a>
-              </dd>
-              <dd>
-                <a href="javascript:void(0)">1000 - 2000</a>
+              <dd><a href="javascript:void(0)" v-bind:class="{'cur':priceChecked=='all'}">All</a></dd>
+              <dd v-for="price in priceFliter">
+                <a href="javascript:void(0)">{{price.startPrice}} - {{price.endPrice}}</a>
               </dd>
             </dl>
           </div>
@@ -38,49 +29,13 @@
           <div class="accessory-list-wrap">
             <div class="accessory-list col-4">
               <ul>
-                <li>
+                <li v-for="(item,index) in goodsList">
                   <div class="pic">
-                    <a href="#"><img src="static/1.jpg" alt=""></a>
+                    <a href="#"><img v-bind:src="'/static/'+item.productImg" alt=""></a>
                   </div>
                   <div class="main">
-                    <div class="name">XX</div>
-                    <div class="price">999</div>
-                    <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="pic">
-                    <a href="#"><img src="static/2.jpg" alt=""></a>
-                  </div>
-                  <div class="main">
-                    <div class="name">XX</div>
-                    <div class="price">1000</div>
-                    <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="pic">
-                    <a href="#"><img src="static/3.jpg" alt=""></a>
-                  </div>
-                  <div class="main">
-                    <div class="name">XX</div>
-                    <div class="price">500</div>
-                    <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div class="pic">
-                    <a href="#"><img src="static/4.jpg" alt=""></a>
-                  </div>
-                  <div class="main">
-                    <div class="name">XX</div>
-                    <div class="price">2499</div>
+                    <div class="name">{{item.productName}}</div>
+                    <div class="price">{{item.productPrice}}</div>
                     <div class="btn-area">
                       <a href="javascript:;" class="btn btn--m">加入购物车</a>
                     </div>
@@ -95,22 +50,47 @@
     <nav-footer></nav-footer>
   </div>
 </template>
-
 <script>
   import './../assets/css/base.css'
   import './../assets/css/product.css'
   import NavHeader from './../components/NavHeader.vue'
   import NavFooter from './../components/NavFooter.vue'
   import NavBread from './../components/NavBread.vue'
+  import axios from 'axios'
 export default {
     data () {
       return {
-        msg: ''
+        goodsList: [],
+        priceFliter: [
+          {
+            startPrice: '0.00',
+            endPrice: '500.00'
+          },
+          {
+            startPrice: '500.00',
+            endPrice: '1000.00'
+          },
+          {
+            startPrice: '1000.00',
+            endPrice: '2000.00'
+          }
+        ],
+        priceChecked: 'all'
       }
     },
-    methods: {
+    components: {NavHeader, NavFooter, NavBread},
+    mounted: function () {
+      this.getGoodsList()
     },
-    components: {NavHeader, NavFooter, NavBread}
+    methods: {
+      getGoodsList () {
+        axios.get('/goods').then((result) => {
+          var res = result.data
+          this.goodsList = res.result
+          console.log(this.goodsList)
+        })
+      }
+    }
 }
 </script>
 
