@@ -59,7 +59,7 @@ router.get('/', function (req, res, next) {
 // 加入到购物车
 router.post('/addCart', function (req, res, next) {
   var User = require('../models/users')
-  var productId = req.body('productId')// get取参数用param，post取参用body
+  var productId = req.body.productId// get取参数用param，post取参用body
   var userId = '100000077'
   User.findOne({userId: userId}, function (err, userDoc) {
     if (err) {
@@ -88,7 +88,7 @@ router.post('/addCart', function (req, res, next) {
               res.json({
                 status: '0',
                 msg: '',
-                result: 'suc'
+                result: 'success'
               })
             }
           })
@@ -114,7 +114,7 @@ router.post('/addCart', function (req, res, next) {
                     res.json({
                       status: '0',
                       msg: '',
-                      result: 'suc'
+                      result: 'success'
                     })
                   }
                 })

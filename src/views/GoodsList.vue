@@ -152,7 +152,7 @@ export default {
           if (res.status === 0) {
             alert('加入成功')
           } else {
-            alert(res.msg)
+            alert(res.data.result)
           }
         }).catch(function (error) {
           console.log(error)
