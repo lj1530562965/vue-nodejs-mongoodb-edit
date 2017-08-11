@@ -6,6 +6,7 @@ var User = require('./../models/users')
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
+// 登录接口
 router.post('/login', function(req, res, next) {
   var param = {
     userName:req.body.userName,
@@ -34,6 +35,18 @@ router.post('/login', function(req, res, next) {
         })
       }
     }
+  })
+});
+// 退出接口
+router.post('/logout', function(req, res, next) {
+  res.cookie('userId', '', {
+    path: '/',
+    maxAge: -1
+  })
+  res.json({
+    status: 0,
+    msg: '',
+    result: ''
   })
 });
 
