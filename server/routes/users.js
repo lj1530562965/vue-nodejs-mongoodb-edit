@@ -25,9 +25,13 @@ router.post('/login', function(req, res, next) {
           path: '/',
           maxAge: 1000 * 60 * 60
         })
-        // req.session.user = doc // session是客服端发过来的请求,所以用req
+        res.cookie('userName', doc.userName, {
+          path: '/',
+          maxAge: 1000 * 60 * 60
+        })
+        // req.session.user = doc // session是客服端发过来的请求,所以用req,还要安装express-session
         res.json({
-          status: 0,
+          status: '0',
           msg: '',
           result: {
             userName: doc.userName
@@ -44,10 +48,27 @@ router.post('/logout', function(req, res, next) {
     maxAge: -1
   })
   res.json({
-    status: 0,
+    status: '0',
     msg: '',
     result: ''
   })
+});
+// 校验登录
+router.get('/checkLogin', function(req, res, next) {
+  if(req.cookies.userId){
+    res.json({
+      status: '0',
+      msg: '',
+      result: req.cookies.userName || ''
+    })
+  }else{
+    res.json({
+      status: '1',
+      msg: '未登录',
+      result: ''
+    })
+  }
+
 });
 
 module.exports = router;

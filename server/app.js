@@ -25,6 +25,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function (req,res,next) {
+  // 存cookie是res，cookie是客服端保存的，客服端发过来请求后我们通过req拿我们的cookie值
+  if(req.cookies.userId){
+    next()
+  }else{
+    console.log(`path:${req.path},originalUrl:${req.originalUrl}`)
+    // path:/goods,originalUrl:/goods?page=1&pageSize=8&sort=1&priceLevel=all
+    if(req.originalUrl == '/users/logout' || req.originalUrl == '/users/login' ||  req.path == '/goods'){
+      next()
+    }else{
+      res.json({
+        status: '10001',
+        msg: '当前未登录',
+        result: ''
+      })
+    }
+  }
+})
+
 app.use('/', index);
 app.use('/users', users);
 app.use('/goods', goods);

@@ -75,7 +75,20 @@ export default {
         nickName: ''
       }
     },
+    mounted: function () {
+      this.checkLogin()
+    },
     methods: {
+      checkLogin () {
+        axios.get('/users/checkLogin').then(response => {
+          let res = response.data
+          if (res.status === '0') {
+            this.nickName = res.result
+          }
+        }).catch(function (error) {
+          console.log(error)
+        })
+      },
       login () {
         if (!this.userName || !this.userPwd) {
           this.errorTip = true
@@ -87,7 +100,7 @@ export default {
         }).then(response => {
           let res = response.data
           alert(res.status)
-          if (res.status === 0) {
+          if (res.status === '0') {
             this.errorTip = false
             this.loginModelFlag = false
             this.nickName = res.result.userName
@@ -101,7 +114,7 @@ export default {
       logout () {
         axios.post('/users/logout').then(response => {
           let res = response.data
-          if (res.status === 0) {
+          if (res.status === '0') {
             this.nickName = ''
           } else {
             this.errorTip = true
