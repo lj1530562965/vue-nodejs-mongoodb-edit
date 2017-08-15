@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>vuex -Mutations</title>
+  <script src="../../node_modules\vue\dist\vue.js"></script>
+  <script src="../../node_modules\vuex\dist\vuex.min.js"></script>
+</head>
+<body>
+<div id="app">
+  <h2>{{msg}}</h2>
+  <a href="javascript:;" @click="add">点击</a>
+  <counter></counter>
+</div>
+</body>
+<script>
+  const counter = {
+    template: `
+                <div>
+                <div>点击数量：{{count}}</div>
+                <div>用户名：{{name}}</div>
+                </div>`,
+    computed: {
+      count () {
+        return this.$store.state.count
+      },
+      name () {
+        return this.$store.state.name
+      }
+    }
+  }
+  const store = new Vuex.Store({
+    state: {
+      count: 10,
+      name: 'jack'
+    },
+    mutations: {
+        increment (state) {
+          state.count++
+        },
+        updateName (state, username) {
+          state.name = username
+        }
+    }
+  })
+  new Vue({
+    el: '#app',
+    store,
+    data: {
+      msg: 'vuex -Mutations的使用'
+    },
+    methods: {
+      add () {
+        this.$store.commit('increment')
+        this.$store.commit('updateName', 'mayun')
+      }
+    },
+    components: {counter}
+  })
+</script>
+</html>
